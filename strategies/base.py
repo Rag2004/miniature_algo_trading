@@ -6,13 +6,6 @@ from core.signal import Signal
 
 
 class BaseStrategy(ABC):
-    """
-    Base class for all strategies.
-    Enforces:
-    - One position at a time
-    - No short selling
-    """
-
     def __init__(self, strategy_id: str, symbol: str):
         self.strategy_id = strategy_id
         self.symbol = symbol

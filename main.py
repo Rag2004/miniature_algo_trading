@@ -1,91 +1,4 @@
-# from engine.backtest_engine import BacktestEngine
 
-
-# def main():
-#     print("=" * 70)
-#     print("MINI ALGORITHMIC TRADING SYSTEM — EXECUTION TRACE")
-#     print("=" * 70)
-
-#     print("\n[1] Initialising system components...")
-#     engine = BacktestEngine(
-#         csv_path="data/market_data.csv",
-#         symbol="BANKNIFTY"
-#     )
-
-#     print("    ✔ Market data feed ready")
-#     print("    ✔ EMA crossover strategy loaded")
-#     print("    ✔ Execution engine initialised")
-#     print("    ✔ Risk manager active")
-#     print("    ✔ Analytics configured")
-
-#     print("\n[2] Running backtest...\n")
-#     summary = engine.run()
-
-#     print("\n[3] TRADE-BY-TRADE EXECUTION TRACE")
-#     print("-" * 70)
-
-#     for sid, trades in summary["trades"].items():
-#         print(f"\nStrategy: {sid}")
-#         print("-" * 70)
-
-#         open_trade = None
-
-#         for trade in trades:
-#             if trade.side == "BUY":
-#                 open_trade = trade
-#                 print(
-#                     f"BUY  → Time: {trade.timestamp} | "
-#                     f"Price: {trade.price:.2f} | "
-#                     f"Qty: {trade.quantity}"
-#                 )
-
-#             elif trade.side == "SELL" and open_trade:
-#                 pnl = (trade.price - open_trade.price) * trade.quantity
-#                 print(
-#                     f"SELL → Time: {trade.timestamp} | "
-#                     f"Price: {trade.price:.2f} | "
-#                     f"Qty: {trade.quantity} | "
-#                     f"PnL: {pnl:.2f}"
-#                 )
-#                 print("-" * 70)
-#                 open_trade = None
-
-#     # 🔴 NEW SECTION — SKIPPED TRADES
-#     print("\n[4] SKIPPED TRADES (BLOCKED BY RISK MANAGER)")
-#     print("-" * 70)
-
-#     if not summary["skipped_trades"]:
-#         print("No trades were skipped by risk rules.")
-#     else:
-#         for skip in summary["skipped_trades"]:
-#             print(
-#                 f"SKIPPED → Time: {skip['timestamp']} | "
-#                 f"Strategy: {skip['strategy_id']} | "
-#                 f"Side: {skip['side']} | "
-#                 f"Price: {skip['price']:.2f} | "
-#                 f"Reason: {skip['reason']}"
-#             )
-
-#     print("\n[5] FINAL POSITION SUMMARY")
-#     print("-" * 70)
-
-#     for sid, position in summary["positions"].items():
-#         print(f"Strategy        : {sid}")
-#         print(f"Final Quantity  : {position.quantity}")
-#         print(f"Avg Price      : {position.avg_price:.2f}")
-#         print(f"Realised PnL   : {position.realised_pnl:.2f}")
-#         print("-" * 70)
-
-#     print("\n[6] OUTPUT FILES GENERATED")
-#     print("    ✔ output_trades.csv")
-#     print("    ✔ output_metrics.csv")
-
-#     print("\n[7] Backtest completed successfully ✅")
-#     print("=" * 70)
-
-
-# if __name__ == "__main__":
-#     main()
 from data.feed import MarketDataFeed
 
 from strategies.ema_crossover import EMACrossoverStrategy
@@ -128,8 +41,8 @@ def main():
     # ------------------------------------------------------------
     risk_manager = RiskManager(
         max_position_size=5000,
-        max_loss_per_strategy=-100000000.0,
-        max_profit_per_strategy=500000000.0,
+        max_loss_per_strategy=-1000,
+        max_profit_per_strategy=5000.0,
         default_quantity=5
     )
 

@@ -9,7 +9,7 @@ class RiskManager:
     
     def __init__(self, 
                  max_position_size: int = 1,
-                 max_loss_per_strategy: float = -20000.0,
+                 max_loss_per_strategy: float = -20.0,
                  max_profit_per_strategy: float = 50000.0,
                  default_quantity: int = 1):
       

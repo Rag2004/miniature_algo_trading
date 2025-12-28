@@ -20,23 +20,13 @@ class Trade:
 
 @dataclass
 class Position:
-    """
-    Position tracking for a strategy+symbol pair.
-    Maintains quantity, average price, and calculates unrealized PnL.
-    """
+    
     strategy_id: str
     symbol: str
     quantity: int = 0
     average_price: float = 0.0
     
     def buy(self, qty: int, price: float):
-        """
-        Add to long position
-        
-        Args:
-            qty: Quantity to buy (positive)
-            price: Purchase price
-        """
         if self.quantity < 0:
             # Closing short position
             if qty >= abs(self.quantity):
@@ -56,16 +46,7 @@ class Position:
             self.average_price = total_cost / self.quantity if self.quantity > 0 else 0.0
     
     def sell(self, qty: int, price: float) -> float:
-        """
-        Reduce long position or add to short position
         
-        Args:
-            qty: Quantity to sell (positive)
-            price: Sale price
-            
-        Returns:
-            Realized PnL from this trade
-        """
         realized_pnl = 0.0
         
         if self.quantity > 0:
@@ -96,15 +77,6 @@ class Position:
         return 0.0
     
     def calculate_unrealized_pnl(self, current_price: float) -> float:
-        """
-        Calculate unrealized PnL at current price
-        
-        Args:
-            current_price: Current market price
-            
-        Returns:
-            Unrealized PnL
-        """
         if self.quantity == 0:
             return 0.0
         return (current_price - self.average_price) * self.quantity

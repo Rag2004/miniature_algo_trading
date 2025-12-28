@@ -1,11 +1,5 @@
 class EMA:
-    """
-    Exponential Moving Average (EMA)
-    --------------------------------
-    Computes EMA incrementally (bar-by-bar),
-    suitable for real-time simulation.
-    """
-
+    
     def __init__(self, period: int):
         self.period = period
         self.multiplier = 2 / (period + 1)
@@ -14,9 +8,7 @@ class EMA:
         self.prices = []
 
     def update(self, price: float):
-        """
-        Update EMA with latest close price.
-        """
+       
         if not self.initialized:
             self.prices.append(price)
 
